@@ -17,7 +17,7 @@ export const siteConfig: SiteConfig = {
 	},
 	banner: {
 		enable: true,
-		src: "assets/images/demo-banner.png", // Relative to the /src directory. Relative to the /public directory if it starts with '/'
+		src: "assets/images/kryo.jpg", // Relative to the /src directory. Relative to the /public directory if it starts with '/'
 		position: "center", // Equivalent to object-position, only supports 'top', 'center', 'bottom'. 'center' by default
 		credit: {
 			enable: false, // Display the credit text of the banner image
@@ -55,7 +55,7 @@ export const navBarConfig: NavBarConfig = {
 export const profileConfig: ProfileConfig = {
 	avatar: "assets/images/avatar.PNG", // Relative to the /src directory. Relative to the /public directory if it starts with '/'
 	name: "Georicl",
-	bio: "一名在读学生, 喜欢PTCG, 符文战场; 剑网三韭菜",
+	bio: "一名在读学生, 喜欢pokemon, PTCG, 符文战场; 剑网三韭菜, 成分复杂的杂食种",
 	links: [
 		{
 			name: "Mail",
