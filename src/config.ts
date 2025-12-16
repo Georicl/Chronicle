@@ -41,11 +41,7 @@ export const siteConfig: SiteConfig = {
 
 export const navBarConfig: NavBarConfig = {
 	links: [
-		{
-			name: "Home",
-			url: "/posts/",
-			external: false,
-		},
+		LinkPreset.Home,
 		LinkPreset.Archive,
 		LinkPreset.About,
 		{
