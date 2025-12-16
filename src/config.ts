@@ -55,7 +55,7 @@ export const navBarConfig: NavBarConfig = {
 export const profileConfig: ProfileConfig = {
 	avatar: "assets/images/avatar.PNG", // Relative to the /src directory. Relative to the /public directory if it starts with '/'
 	name: "Georicl",
-	bio: "",
+	bio: "一名在读学生, 喜欢PTCG, 符文战场; 剑网三韭菜",
 	links: [
 		{
 			name: "Mail",
@@ -73,7 +73,7 @@ export const profileConfig: ProfileConfig = {
 };
 
 export const licenseConfig: LicenseConfig = {
-	enable: true,
+	enable: false,
 	name: "CC BY-NC-SA 4.0",
 	url: "https://creativecommons.org/licenses/by-nc-sa/4.0/",
 };

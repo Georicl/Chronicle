@@ -1,35 +1,12 @@
 ---
-import Profile from "../components/widget/Profile.astro";
+import Welcome from "@components/Welcome.astro";
 // src/pages/index.astro
 import Layout from "../layouts/Layout.astro";
 
-// 定义页面元数据
-const pageTitle = "Welcome";
 ---
 
-<Layout title={pageTitle}>
-    <main id="main" class="w-full min-h-screen flex flex-col items-center justify-center bg-[var(--page-bg)]">
-        
-        <div class="transform scale-110 mb-12 animate-fade-in-up">
-            <Profile></Profile>
-        </div>
-
-        <a href="/posts/"
-           class="
-             transition-all duration-300
-             px-8 py-3 rounded-full
-             bg-[var(--card-bg)] 
-             text-[var(--primary)]
-             font-bold text-lg
-             shadow-lg hover:shadow-xl
-             hover:scale-105 active:scale-95
-             border border-[var(--primary)]
-           "
-        >
-            Enter
-        </a>
-        
-    </main>
+<Layout title="Home">
+    <Welcome />
 </Layout>
 
 <style>
