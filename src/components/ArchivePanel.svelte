@@ -5,7 +5,7 @@ import I18nKey from "../i18n/i18nKey";
 import { i18n } from "../i18n/translation";
 import { getPostUrlBySlug } from "../utils/url-utils";
 
-export let tags: string[] = [];       // 添加默认值 = []
+export let tags: string[] = []; // 添加默认值 = []
 export let categories: string[] = []; // 添加默认值 = []
 export let sortedPosts: Post[] = [];
 
