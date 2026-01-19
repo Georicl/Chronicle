@@ -1,11 +1,11 @@
 ---
 import { Icon } from "astro-icon/components";
 import ImageWrapper from "./misc/ImageWrapper.astro";
+import { siteConfig } from "../config"; // [新增] 导入配置以获取背景图
 
 const welcomeConfig = {
 	avatar: "assets/images/Welcom_page.PNG",
 	name: "Georicl",
-	// 这里可以写专门针对欢迎页的标语，而不是通用的 Bio
 	bio: "欢迎聆听,我的声音",
 	links: [
 		{
@@ -22,56 +22,88 @@ const welcomeConfig = {
 };
 ---
 
-<main id="welcome-section" class="w-full h-screen flex flex-col items-center justify-center bg-[var(--page-bg)] relative z-10">
+<main class="w-full h-screen relative flex flex-col items-center justify-center overflow-hidden bg-[var(--page-bg)]">
     
-    <div class="transform scale-120 mb-8 animate-fade-in-up">
-        
-        <div class="card-base p-10 flex flex-col items-center max-w-lg mx-auto bg-white/60 dark:bg-black/40 backdrop-blur-md !shadow-2xl">
-            <div class="rounded-xl overflow-hidden w-50 h-50 mb-4 shadow-lg group relative">
-                 <div class="absolute transition pointer-events-none group-hover:bg-black/30 w-full h-full z-10 flex items-center justify-center">
-                    <Icon name="fa6-regular:address-card" class="transition opacity-0 scale-90 group-hover:scale-100 group-hover:opacity-100 text-white text-4xl" />
-                </div>
-                <ImageWrapper src={welcomeConfig.avatar} alt="Avatar" class="w-full h-full object-cover" />
+    <div class="absolute inset-0 z-0">
+        {siteConfig.banner.enable && (
+            <div class="w-full h-full relative">
+                <ImageWrapper src={siteConfig.banner.src} alt="Background" class="w-full h-full object-cover opacity-60 dark:opacity-40 scale-110 animate-slow-zoom" />
+                <div class="absolute inset-0 bg-gradient-to-t from-[var(--page-bg)] via-[var(--page-bg)]/50 to-transparent"></div>
+                <div class="absolute inset-0 backdrop-blur-sm"></div>
             </div>
-
-            <div class="font-bold text-2xl text-center mb-2 dark:text-neutral-50">
-                {welcomeConfig.name}
-            </div>
-
-            <div class="h-1.5 w-8 bg-[var(--primary)] rounded-full mb-3"></div>
-
-            <div class="text-center text-neutral-500 dark:text-neutral-400 mb-6 px-4 text-lg">
-                {welcomeConfig.bio}
-            </div>
-
-            <div class="flex gap-3 justify-center">
-                {welcomeConfig.links.map(item => (
-                    <a aria-label={item.name} href={item.url} target="_blank" 
-                       class="flex items-center justify-center rounded-lg h-12 w-12 bg-[var(--btn-regular-bg)] hover:bg-[var(--btn-regular-bg-hover)] text-[var(--btn-content)] active:scale-95 transition-all shadow-sm">
-                        <Icon name={item.icon} class="text-2xl" />
-                    </a>
-                ))}
-            </div>
-        </div>
+        )}
     </div>
 
-    <a href="/posts/"
-       class="
-         animate-fade-in-up
-         transition-all duration-300
-         px-10 py-3 rounded-full
-         bg-[var(--card-bg)] 
-         text-[var(--primary)]
-         font-bold text-xl
-         shadow-lg hover:shadow-[var(--primary)]/30
-         hover:scale-105 active:scale-95
-         border-2 border-[var(--primary)]/20
-         cursor-pointer
-         z-20
-       "
-       style="animation-delay: 0.2s"
-    >
-        进入
-    </a>
+    <div class="relative z-10 flex flex-col items-center">
+        
+        <div class="transform scale-100 mb-8 animate-fade-in-up">
+            <div class="card-base p-10 flex flex-col items-center max-w-lg mx-auto 
+                        bg-white/70 dark:bg-black/50 backdrop-blur-xl 
+                        border border-white/20 dark:border-white/10
+                        shadow-2xl shadow-black/10 dark:shadow-black/50 rounded-[2rem]">
+                
+                <div class="rounded-xl overflow-hidden w-50 h-50 mb-4 shadow-lg relative">
+                <ImageWrapper src={welcomeConfig.avatar} alt="Avatar" class="w-full h-full object-cover" />
+                </div>
+
+                <div class="font-bold text-3xl text-center mb-3 text-black/90 dark:text-white tracking-wide">
+                    {welcomeConfig.name}
+                </div>
+
+                <div class="h-1 w-12 bg-gradient-to-r from-[var(--primary)] to-[var(--secondary)] rounded-full mb-4 opacity-80"></div>
+
+                <div class="text-center text-neutral-600 dark:text-neutral-300 mb-8 px-4 text-lg font-medium leading-relaxed">
+                    {welcomeConfig.bio}
+                </div>
+
+                <div class="flex gap-4 justify-center">
+                    {welcomeConfig.links.map(item => (
+                        <a aria-label={item.name} href={item.url} target="_blank" 
+                           class="flex items-center justify-center rounded-xl h-12 w-12 
+                                  bg-neutral-100 dark:bg-neutral-800/80 
+                                  hover:bg-[var(--primary)] hover:text-white dark:hover:bg-[var(--primary)]
+                                  text-neutral-600 dark:text-neutral-300
+                                  transition-all duration-300 shadow-sm hover:shadow-md hover:-translate-y-1">
+                            <Icon name={item.icon} class="text-2xl" />
+                        </a>
+                    ))}
+                </div>
+            </div>
+        </div>
+
+        <a href="/posts/"
+           class="
+             animate-fade-in-up
+             relative overflow-hidden
+             group
+             px-12 py-4 rounded-full
+             bg-[var(--card-bg)] dark:bg-neutral-900/80
+             text-[var(--primary)]
+             font-bold text-xl tracking-widest
+             shadow-xl hover:shadow-[var(--primary)]/20
+             border border-white/20
+             cursor-pointer
+             transition-all duration-300
+             hover:scale-105 active:scale-95
+             z-20
+           "
+           style="animation-delay: 0.2s"
+        >
+            <span class="relative z-10 group-hover:text-[var(--primary)] transition-colors">进入</span>
+            <div class="absolute inset-0 bg-[var(--primary)]/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+        </a>
+
+    </div>
         
 </main>
+
+<style>
+    /* 定义一个缓慢放大的背景动画，增加呼吸感 */
+    @keyframes slowZoom {
+        0% { transform: scale(1.1); }
+        100% { transform: scale(1.2); }
+    }
+    .animate-slow-zoom {
+        animation: slowZoom 20s infinite alternate linear;
+    }
+</style>
