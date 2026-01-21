@@ -15,6 +15,7 @@ import {
 	LIGHT_MODE,
 	PAGE_WIDTH,
 } from "../constants/constants";
+import BioBackground from "@components/misc/BioBackground.astro";
 import { defaultFavicons } from "../constants/icon";
 import type { Favicon } from "../types/config";
 import { pathsEqual, url } from "../utils/url-utils";
@@ -153,7 +154,7 @@ const bannerOffset =
 	>
 		<ConfigCarrier></ConfigCarrier>
 		<slot />
-
+		<BioBackground />
 		<!-- increase the page height during page transition to prevent the scrolling animation from jumping -->
 		<div id="page-height-extend" class="hidden h-[300vh]"></div>
 	</body>

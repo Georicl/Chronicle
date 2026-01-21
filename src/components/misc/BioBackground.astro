@@ -1,0 +1,122 @@
+---
+// src/components/misc/BioBackground.astro
+---
+
+<canvas id="bio-canvas"></canvas>
+
+<style>
+  #bio-canvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: 2;
+    pointer-events: none;
+    opacity: 0.8; /* 稍微调高一点不透明度，让颜色更明显 */
+  }
+</style>
+
+<script>
+  const canvas = document.getElementById('bio-canvas') as HTMLCanvasElement;
+  if (canvas) {
+      const ctx = canvas.getContext('2d');
+      let width = window.innerWidth;
+      let height = window.innerHeight;
+      
+      canvas.width = width;
+      canvas.height = height;
+
+      // 定义粒子结构，增加 color 属性
+      interface Particle {
+        x: number;
+        y: number;
+        vx: number;
+        vy: number;
+        size: number;
+        color: string; // 每个粒子都有自己的颜色
+      }
+
+      const particles: Particle[] = [];
+      const config = {
+        particleCount: 60,   // 粒子数量
+        connectDistance: 150, // 连线距离
+        speed: 0.5
+      };
+
+      function init() {
+        particles.length = 0;
+        for (let i = 0; i < config.particleCount; i++) {
+          // 🎨 随机生成颜色逻辑
+          // HSL: 色相(0-360), 饱和度(70%-100%), 亮度(60%-80%)
+          const hue = Math.random() * 360; 
+          const color = `hsla(${hue}, 80%, 70%, 0.8)`;
+
+          particles.push({
+            x: Math.random() * width,
+            y: Math.random() * height,
+            vx: (Math.random() - 0.5) * config.speed,
+            vy: (Math.random() - 0.5) * config.speed,
+            size: Math.random() * 2 + 1.5, // 稍微大一点点
+            color: color
+          });
+        }
+      }
+
+      function animate() {
+        if (!ctx) return;
+        ctx.clearRect(0, 0, width, height);
+        
+        for (let i = 0; i < particles.length; i++) {
+          let p = particles[i];
+          
+          // 移动
+          p.x += p.vx;
+          p.y += p.vy;
+
+          // 边界反弹
+          if (p.x < 0 || p.x > width) p.vx *= -1;
+          if (p.y < 0 || p.y > height) p.vy *= -1;
+
+          // 绘制粒子 (使用粒子自己的颜色)
+          ctx.beginPath();
+          ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+          ctx.fillStyle = p.color;
+          ctx.fill();
+
+          // 绘制连线
+          for (let j = i + 1; j < particles.length; j++) {
+            let p2 = particles[j];
+            let dx = p.x - p2.x;
+            let dy = p.y - p2.y;
+            let dist = Math.sqrt(dx*dx + dy*dy);
+
+            if (dist < config.connectDistance) {
+              // 线条透明度随距离变化
+              const alpha = 1 - dist / config.connectDistance;
+              ctx.beginPath();
+              // 线条颜色：为了不显乱，建议保持白色半透明，或者用浅灰色
+              ctx.strokeStyle = `rgba(255, 255, 255, ${alpha * 0.15})`; 
+              ctx.lineWidth = 1;
+              ctx.moveTo(p.x, p.y);
+              ctx.lineTo(p2.x, p2.y);
+              ctx.stroke();
+            }
+          }
+        }
+        requestAnimationFrame(animate);
+      }
+
+      // 窗口大小改变时重置
+      window.addEventListener('resize', () => {
+        width = window.innerWidth;
+        height = window.innerHeight;
+        canvas.width = width;
+        canvas.height = height;
+        init();
+      });
+
+      init();
+      animate();
+  }
+</script>
