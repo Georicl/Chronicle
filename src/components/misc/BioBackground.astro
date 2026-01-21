@@ -11,9 +11,9 @@
     left: 0;
     width: 100vw;
     height: 100vh;
-    z-index: 2;
+    z-index: 10;
     pointer-events: none;
-    opacity: 0.8; /* 稍微调高一点不透明度，让颜色更明显 */
+    opacity: 0.8; 
   }
 </style>
 
@@ -34,12 +34,12 @@
         vx: number;
         vy: number;
         size: number;
-        color: string; // 每个粒子都有自己的颜色
+        color: string; 
       }
 
       const particles: Particle[] = [];
       const config = {
-        particleCount: 60,   // 粒子数量
+        particleCount: 100,   // 粒子数量
         connectDistance: 150, // 连线距离
         speed: 0.5
       };
@@ -47,8 +47,6 @@
       function init() {
         particles.length = 0;
         for (let i = 0; i < config.particleCount; i++) {
-          // 🎨 随机生成颜色逻辑
-          // HSL: 色相(0-360), 饱和度(70%-100%), 亮度(60%-80%)
           const hue = Math.random() * 360; 
           const color = `hsla(${hue}, 80%, 70%, 0.8)`;
 
@@ -57,7 +55,7 @@
             y: Math.random() * height,
             vx: (Math.random() - 0.5) * config.speed,
             vy: (Math.random() - 0.5) * config.speed,
-            size: Math.random() * 2 + 1.5, // 稍微大一点点
+            size: Math.random() * 2 + 1.5, 
             color: color
           });
         }
